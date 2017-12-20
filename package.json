@@ -13,6 +13,7 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
@@ -36,7 +37,15 @@
     "webpack": "^3.10.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-client": "cross-env NODE_ENV=production webpack -p --env.production",
+    "build-client-testing": "cross-env NODE_ENV=production webpack -p --env.testing",
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "jest --coverage",
+    "build-client-watch": "webpack -w --env.development",
+    "start": "node server",
+    "start-dev": "cross-env NODE_ENV=development npm-run-all --parallel start-server build-client-watch",
+    "start-server": "nodemon server -e html,js,scss --ignore public"
   },
   "author": "",
   "license": "UNLICENSED"

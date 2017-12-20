@@ -16,7 +16,7 @@ module.exports = env => {
     ],
     output: {
       path: __dirname,
-      filename: './public/build/bundle.js',
+      filename: './build/bundle.js',
     },
     devtool: 'source-map',
     module: {
