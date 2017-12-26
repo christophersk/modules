@@ -2,13 +2,15 @@ import React from 'react';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 import Widget from './widgets/Widget';
+import Circle from './widgets/Circle';
 
-import FadeAndSlideTransition from './transitions/FadeAndSlide';
-import Fade from './transitions/Fade';
+// import FadeAndSlideTransition from './transitions/FadeAndSlide';
+// import Fade from './transitions/Fade';
 import SlideFromLeft from './transitions/SlideFromLeft';
-import SlideFromTop from './transitions/SlideFromTop';
-import SlideFromRight from './transitions/SlideFromRight';
-import SlideFromBottom from './transitions/SlideFromBottom';
+// import SlideFromTop from './transitions/SlideFromTop';
+// import SlideFromRight from './transitions/SlideFromRight';
+// import SlideFromBottom from './transitions/SlideFromBottom';
+import TransitionWrapper from './transitions';
 
 const styles = {
   container: {
@@ -21,6 +23,22 @@ const styles = {
   }
 }
 
+const transitions = [
+  { id: 1, widget: <SlideFromLeft /> }
+]
+
+const layouts = [
+  { id: 1, width: 'col-sm-4', height: 300, transitionId: 1, widgetType: 1 },
+  { id: 2, width: 'col-sm-4', height: 300, transitionId: 1, widgetType: 1 }
+]
+
+const features = [
+  { id: 1 },
+  { id: 2 }
+]
+
+const widgetHeight = 325;
+
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -29,34 +47,44 @@ class Main extends React.Component {
     }
 
     this.toggleEnterState = this.toggleEnterState.bind(this);
+    this.createComponent = this.createComponent.bind(this);
   }
 
   toggleEnterState() {
     this.state.in ? this.setState({ in: false }) : this.setState({ in: true })
   }
 
+  createComponent(layout) {
+    switch (layout.widgetType) {
+      case 1:
+        return (
+          <TransitionWrapper layout={layout}>
+            <Widget key={`layout-${layout.id}`} />
+          </TransitionWrapper>
+        );
+      case 2:
+        return <Circle key={`layout-${layout.id}`} />;
+      default:
+        return 'foo';
+    }
+  }
+
   render() {
     return (
       <div className="container-fluid" style={{padding:30}}>
       <TransitionGroup className="row">
-        <SlideFromLeft propClasses={'col-sm-3'} propStyles={{height: 300}}>
-              <Widget />
-        </SlideFromLeft>
-        <SlideFromTop propClasses={'col-sm-6'} propStyles={{height: 300}}>
-            <Widget />
-        </SlideFromTop>
-        <SlideFromRight propClasses={'col-sm-3'} propStyles={{height: 300}}>
-            <Widget />
-        </SlideFromRight>
-        <SlideFromLeft propClasses={'col-sm-3'} propStyles={{height: 600}}>
+        {
+          features.map(feature => {
+            const thisLayout = layouts.find(layout => layout.id === feature.id)
+            return this.createComponent(thisLayout)
+          })
+        }
+        <SlideFromLeft propClasses={'col-sm-4'} propStyles={{height: 300}} widgetHeight={widgetHeight} >
             <Widget />
         </SlideFromLeft>
-        <SlideFromBottom propClasses={'col-sm-6'} propStyles={{height: 600}}>
-            <Widget />
-        </SlideFromBottom>
-        <SlideFromRight propClasses={'col-sm-3'} propStyles={{height: 600}}>
-            <Widget />
-        </SlideFromRight>
+        <SlideFromLeft propClasses={'col-sm-4'} propStyles={{height: 300}} widgetHeight={widgetHeight} >
+            <Circle />
+        </SlideFromLeft>
       </TransitionGroup>
       </div>
     )
@@ -65,3 +93,18 @@ class Main extends React.Component {
 
 export default Main;
 
+// <SlideFromTop propClasses={'col-sm-6'} propStyles={{height: 300}}>
+// <Widget />
+// </SlideFromTop>
+// <SlideFromRight propClasses={'col-sm-3'} propStyles={{height: 300}}>
+// <Widget />
+// </SlideFromRight>
+// <SlideFromLeft propClasses={'col-sm-3'} propStyles={{height: 600}}>
+// <Widget />
+// </SlideFromLeft>
+// <SlideFromBottom propClasses={'col-sm-6'} propStyles={{height: 600}}>
+// <Widget />
+// </SlideFromBottom>
+// <SlideFromRight propClasses={'col-sm-3'} propStyles={{height: 600}}>
+// <Widget />
+// </SlideFromRight>
