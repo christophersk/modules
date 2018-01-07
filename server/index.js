@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.static(path.join(__dirname, '..', 'build')));
+app.use(express.static(path.join(__dirname, '..', 'node_modules')));
 
 app.use('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public/index.html'));

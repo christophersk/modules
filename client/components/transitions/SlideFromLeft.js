@@ -19,7 +19,7 @@ const transitionStyles = {
   }
 }
 
-const SlideFromLeft = ({ in: inProp, children, propClasses, widgetHeight }) => (
+const SlideFromLeft = ({ in: inProp, children, propClasses, propStyles }) => (
   <Transition in={inProp} timeout={duration} appear={true}>
     { state => (
       <div
@@ -27,7 +27,7 @@ const SlideFromLeft = ({ in: inProp, children, propClasses, widgetHeight }) => (
         style={{
           ...defaultStyle,
           ...transitionStyles[state],
-          height: widgetHeight
+          ...propStyles,
       }}>
         { children }
       </div>

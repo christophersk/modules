@@ -3,6 +3,8 @@ import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 import Widget from './widgets/Widget';
 import Circle from './widgets/Circle';
+import ChartOne from './widgets/ChartOne';
+import Circle2 from './widgets/Circle2';
 
 // import FadeAndSlideTransition from './transitions/FadeAndSlide';
 // import Fade from './transitions/Fade';
@@ -29,15 +31,15 @@ const transitions = [
 
 const layouts = [
   { id: 1, width: 'col-sm-4', height: 300, transitionId: 1, widgetType: 1 },
-  { id: 2, width: 'col-sm-4', height: 300, transitionId: 1, widgetType: 1 }
+  { id: 2, width: 'col-sm-4', height: 300, transitionId: 1, widgetType: 1 },
+  { id: 3, width: 'col-sm-4', height: 300, transitionId: 1, widgetType: 1 },
 ]
 
 const features = [
   { id: 1 },
-  { id: 2 }
+  { id: 2 },
+  { id: 3 },
 ]
-
-const widgetHeight = 325;
 
 class Main extends React.Component {
   constructor(props) {
@@ -58,12 +60,14 @@ class Main extends React.Component {
     switch (layout.widgetType) {
       case 1:
         return (
-          <TransitionWrapper layout={layout}>
-            <Widget key={`layout-${layout.id}`} />
+          <TransitionWrapper layout={layout} key={`layout-${layout.id}`}>
+            <Widget />
           </TransitionWrapper>
         );
       case 2:
-        return <Circle key={`layout-${layout.id}`} />;
+        return <Circle key={`layout-${layout.id}`} />
+      case 3:
+        return <ChartOne key={`layout-${layout.id}`} />
       default:
         return 'foo';
     }
@@ -79,12 +83,15 @@ class Main extends React.Component {
             return this.createComponent(thisLayout)
           })
         }
-        <SlideFromLeft propClasses={'col-sm-4'} propStyles={{height: 300}} widgetHeight={widgetHeight} >
-            <Widget />
+        <SlideFromLeft propClasses={'col-sm-12'} propStyles={{height: 400}}>
+          <ChartOne />
         </SlideFromLeft>
-        <SlideFromLeft propClasses={'col-sm-4'} propStyles={{height: 300}} widgetHeight={widgetHeight} >
-            <Circle />
+
+        <SlideFromLeft propClasses={'col-sm-12'} propStyles={{height: 500}}>
+        <Circle2 />
         </SlideFromLeft>
+
+
       </TransitionGroup>
       </div>
     )
@@ -108,3 +115,6 @@ export default Main;
 // <SlideFromRight propClasses={'col-sm-3'} propStyles={{height: 600}}>
 // <Widget />
 // </SlideFromRight>
+
+
+
