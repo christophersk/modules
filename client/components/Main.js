@@ -6,6 +6,8 @@ import Circle from './widgets/Circle';
 import ChartOne from './widgets/ChartOne';
 import Circle2 from './widgets/Circle2';
 
+import Cube from './cube/Cube';
+
 // import FadeAndSlideTransition from './transitions/FadeAndSlide';
 // import Fade from './transitions/Fade';
 import SlideFromLeft from './transitions/SlideFromLeft';
@@ -83,13 +85,10 @@ class Main extends React.Component {
             return this.createComponent(thisLayout)
           })
         }
-        <SlideFromLeft propClasses={'col-sm-12'} propStyles={{height: 400}}>
-          <ChartOne />
+        <SlideFromLeft propClasses={'col-sm-12'} propStyles={{height: 500}}>
+          <Cube />
         </SlideFromLeft>
 
-        <SlideFromLeft propClasses={'col-sm-12'} propStyles={{height: 500}}>
-        <Circle2 />
-        </SlideFromLeft>
 
 
       </TransitionGroup>
@@ -99,6 +98,15 @@ class Main extends React.Component {
 }
 
 export default Main;
+
+
+// <SlideFromLeft propClasses={'col-sm-12'} propStyles={{height: 400}}>
+// <ChartOne />
+// </SlideFromLeft>
+
+// <SlideFromLeft propClasses={'col-sm-12'} propStyles={{height: 500}}>
+// <Circle2 />
+// </SlideFromLeft>
 
 // <SlideFromTop propClasses={'col-sm-6'} propStyles={{height: 300}}>
 // <Widget />
